@@ -52,4 +52,17 @@ public class BookingService {
     public List<Booking> getBookingsByUser(User user) {
         return bookingRepository.findByUser(user);
     }
+
+    public void deleteBooking(Long bookingId, User user) {
+        Booking booking = bookingRepository.findById(bookingId)
+                .orElseThrow(() -> new org.springframework.web.server.ResponseStatusException(
+                        org.springframework.http.HttpStatus.NOT_FOUND, "Booking not found"));
+
+        if (booking.getUser() == null || !booking.getUser().getId().equals(user.getId())) {
+            throw new org.springframework.web.server.ResponseStatusException(
+                    org.springframework.http.HttpStatus.FORBIDDEN, "Not allowed to delete this booking");
+        }
+
+        bookingRepository.delete(booking);
+    }
 }

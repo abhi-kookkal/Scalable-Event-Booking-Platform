@@ -63,4 +63,19 @@ public class BookingController {
 
         return bookingService.getBookingsByUser(user);
     }
+
+    // DELETE /bookings/{id}
+    @DeleteMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteBooking(Authentication authentication,
+                              @PathVariable Long id) {
+
+        String email = authentication.getName();
+
+        User user = userRepository.findByEmail(email)
+                .orElseThrow(() -> new RuntimeException("User not found"));
+
+        // delegate to service (service should validate ownership/permissions)
+        bookingService.deleteBooking(id, user);
+    }
 }
