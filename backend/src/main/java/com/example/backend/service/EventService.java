@@ -5,6 +5,7 @@ import com.example.backend.exception.ResourceNotFoundException;
 import com.example.backend.repository.EventRepository;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -23,7 +24,12 @@ public class EventService {
     public Event getEventById(Long id) {
         return eventRepository.findById(id)
                 .orElseThrow(() -> new ResourceNotFoundException("Event not found"));
+    }
 
-
+    public Event createEvent(Event event) {
+        if (event.getCreatedAt() == null) {
+            event.setCreatedAt(LocalDateTime.now());
+        }
+        return eventRepository.save(event);
     }
 }
