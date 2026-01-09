@@ -6,7 +6,6 @@ import com.example.backend.entity.User;
 import com.example.backend.repository.BookingRepository;
 import com.example.backend.repository.EventRepository;
 import org.springframework.stereotype.Service;
-import com.example.backend.entity.User;
 import com.example.backend.exception.BadRequestException;
 
 import java.util.List;

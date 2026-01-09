@@ -3,8 +3,6 @@ package com.example.backend.entity;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-// import org.h2.engine.User;
-import com.example.backend.entity.User;
 
 @Entity
 @Table(name = "bookings")
