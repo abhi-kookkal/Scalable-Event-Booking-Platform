@@ -1,0 +1,38 @@
+package com.example.backend.exception;
+
+import org.springframework.http.HttpStatus;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.Map;
+
+@RestControllerAdvice
+public class GlobalExceptionHandler {
+
+    // 404 - Not Found
+    @ExceptionHandler(ResourceNotFoundException.class)
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public Map<String, String> handleNotFound(ResourceNotFoundException ex) {
+        return Map.of("error", ex.getMessage());
+    }
+
+    // 400 - Bad Request
+    @ExceptionHandler(BadRequestException.class)
+    @ResponseStatus(HttpStatus.BAD_REQUEST)
+    public Map<String, String> handleBadRequest(BadRequestException ex) {
+        return Map.of("error", ex.getMessage());
+    }
+
+    // 429 - Too Many Requests
+    @ExceptionHandler(RateLimitException.class)
+    @ResponseStatus(HttpStatus.TOO_MANY_REQUESTS)
+    public Map<String, String> handleRateLimit(RateLimitException ex) {
+        return Map.of("error", ex.getMessage());
+    }
+
+    // 500 - Fallback (safety net)
+    @ExceptionHandler(Exception.class)
+    @ResponseStatus(HttpStatus.INTERNAL_SERVER_ERROR)
+    public Map<String, String> handleGeneral(Exception ex) {
+        return Map.of("error", "Something went wrong");
+    }
+}
