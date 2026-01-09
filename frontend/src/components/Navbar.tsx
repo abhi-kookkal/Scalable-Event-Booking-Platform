@@ -5,30 +5,45 @@ import "../styles/main.css";
 export default function Navbar() {
   const navigate = useNavigate();
   const [isLoggedIn, setIsLoggedIn] = useState(!!localStorage.getItem("token"));
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
 
   const handleLogout = () => {
     localStorage.removeItem("token");
     setIsLoggedIn(false);
     navigate("/login");
+    setMobileMenuOpen(false);
+  };
+
+  const closeMobileMenu = () => {
+    setMobileMenuOpen(false);
   };
 
   return (
     <nav className="navbar">
       <h2>EventConnect</h2>
-      <div>
+      
+      {/* Hamburger Menu Icon */}
+      <div className="hamburger" onClick={() => setMobileMenuOpen(!mobileMenuOpen)}>
+        <span></span>
+        <span></span>
+        <span></span>
+      </div>
+
+      {/* Navigation Links */}
+      <div className={`navbar-menu ${mobileMenuOpen ? "active" : ""}`}>
         {isLoggedIn ? (
           <>
-            <Link to="/">Events</Link>
-            <Link to="/bookings">Bookings</Link>
-            <Link to="/analytics">Analytics</Link>
+            <Link to="/" onClick={closeMobileMenu}>Events</Link>
+            <Link to="/bookings" onClick={closeMobileMenu}>Bookings</Link>
+            <Link to="/analytics" onClick={closeMobileMenu}>Analytics</Link>
             <button className="logout-btn" onClick={handleLogout}>
               Logout
             </button>
           </>
         ) : (
           <>
-            <Link to="/login">Login</Link>
-            <Link to="/register">Sign Up</Link>
+            <Link to="/login" onClick={closeMobileMenu}>Login</Link>
+            <Link to="/register" onClick={closeMobileMenu}>Sign Up</Link>
           </>
         )}
       </div>
