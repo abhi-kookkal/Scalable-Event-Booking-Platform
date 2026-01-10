@@ -10,7 +10,8 @@ This project demonstrates **frontend UI skills**, **backend API design**, **data
 
 ## 🚀 Live Demo
 
-**Frontend (Hosted on Vercel):** https://scalable-event-booking-platform-c82fhjkgm.vercel.app  
+**Frontend (Hosted on Vercel):** 
+https://scalable-event-booking-platform.vercel.app
 **Backend (Hosted on Render):** https://scalable-event-booking-platform.onrender.com  
 
 ⚠️ **Note:** The backend may take up to 1 minute to load on the first request due to the free plan cold start.
